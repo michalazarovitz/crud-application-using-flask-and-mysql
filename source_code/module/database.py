@@ -5,10 +5,16 @@ Created on Jan 10, 2017
 '''
 
 import pymysql
+import os
+
+mysqlhostip = os.getenv('MYSQL_HOST','localhost')
+mysqluser = os.getenv('MYSQL_USER')
+mysqlpassword = os.getenv('MYSQL_PWD')
+
 
 class Database:
     def connect(self):
-        return pymysql.connect("phonebook-mysql","dev","dev","crud_flask" )
+        return pymysql.connect(host=mysqlhostip,user=mysqluser,password=mysqlpassword,"crud_flask")
 
     def read(self, id):
         con = Database.connect(self)
