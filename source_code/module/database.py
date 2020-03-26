@@ -14,7 +14,7 @@ mysqlpassword = os.getenv('MYSQL_PWD')
 
 class Database:
     def connect(self):
-        return pymysql.connect(host=mysqlhostip,user=mysqluser,password=mysqlpassword,"crud_flask")
+        return pymysql.connect(host=mysqlhostip,user=mysqluser,password=mysqlpassword,db="crud_flask")
 
     def read(self, id):
         con = Database.connect(self)
