@@ -16,8 +16,8 @@ privatekey = os.getenv('PK')
 
 server = SSHTunnelForwarder(
     (mysqlhostip, 22),
-    ssh_username=privatekey,
-    KEY_PASSWORD='~/.ssh/id_rsa',
+    ssh_username='ubuntu',
+    KEY_PASSWORD=privatekey,
     remote_bind_address=('127.0.0.1', 3306)
 )
 server.start()
