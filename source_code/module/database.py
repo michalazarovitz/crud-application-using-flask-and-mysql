@@ -5,26 +5,19 @@ Created on Jan 10, 2017
 '''
 
 import pymysql
+import pymysql.cursors
 import os
-import sshtunnel
-from sshtunnel import SSHTunnelForwarder
+
 
 mysqlhostip = os.getenv('MYSQL_HOST','localhost')
 mysqluser = os.getenv('MYSQL_USER')
 mysqlpassword = os.getenv('MYSQL_PWD')
 privatekey = os.getenv('PK')
 
-server = SSHTunnelForwarder(
-    (mysqlhostip, 22),
-    ssh_username='ubuntu',
-    ssh_pkey=privatekey,
-    remote_bind_address=('127.0.0.1', 3306)
-)
-server.start()
 
 class Database:
     def connect(self):
-        return pymysql.connect(host='127.0.0.1',user=mysqluser,password=mysqlpassword,db='crud_flask',port=3306)
+        return pymysql.connect(host='127.0.0.1',user=mysqluser,password=mysqlpassword,db='crud_flask',port=3306,charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
 
     def read(self, id):
         con = Database.connect(self)
