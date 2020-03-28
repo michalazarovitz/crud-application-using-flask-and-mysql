@@ -17,7 +17,7 @@ privatekey = os.getenv('PK')
 
 class Database:
     def connect(self):
-        return pymysql.connect(host=mysqlhostip,user=mysqluser,password=mysqlpassword,db='crud_flask',port=3306,charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+        return pymysql.connect(host='10.0.3.88',user=mysqluser,password=mysqlpassword,db='crud_flask',port=3306,charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
 
     def read(self, id):
         con = Database.connect(self)
