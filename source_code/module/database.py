@@ -9,7 +9,7 @@ import pymysql.cursors
 import os
 
 
-mysqlhostip = os.getenv('MYSQL_HOST','localhost')
+mysqlhostip = os.getenv('MYSQL_HOST')
 mysqluser = os.getenv('MYSQL_USER')
 mysqlpassword = os.getenv('MYSQL_PWD')
 
