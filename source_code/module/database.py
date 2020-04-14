@@ -12,7 +12,7 @@ import os
 mysqlhostip = os.getenv('MYSQL_HOST','localhost')
 mysqluser = os.getenv('MYSQL_USER')
 mysqlpassword = os.getenv('MYSQL_PWD')
-privatekey = os.getenv('PK')
+
 
 
 class Database:
