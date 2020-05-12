@@ -6,14 +6,21 @@ Created on Jan 10, 2017
 
 from flask import Flask, flash, render_template, redirect, url_for, request, session
 from module.database import Database
+import prometheus_client
+
 
 
 app = Flask(__name__)
 app.secret_key = "mys3cr3tk3y"
 db = Database()
 
+graphs = {}
+graphs['requests'] = Counter('http_requests_total', 'The total number of http requests')
+graphs['phonenumber'] = Counter('phone_number_total', 'The total number of phone numbers')
+
 @app.route('/')
 def index():
+    graphs['requests'].inc()
     data = db.read(None)
 
     return render_template('index.html', data = data)
@@ -26,6 +33,7 @@ def add():
 def addphone():
     if request.method == 'POST' and request.form['save']:
         if db.insert(request.form):
+            graphs['phonenumber'].inc()
             flash("A new phone number has been added")
         else:
             flash("A new phone number can not be added")
@@ -85,6 +93,13 @@ def deletephone():
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
+    
+@app.route("/metrics")
+def requests_count():
+    res = []
+    for k,v in graphs.items():
+        res.append(prometheus_client.generate_latest(v))
+    return Response(res, mimetype="text/plain")
 
 @app.errorhandler(404)
 def page_not_found(error):
