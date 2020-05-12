@@ -7,6 +7,8 @@ Created on Jan 10, 2017
 from flask import Flask, flash, render_template, redirect, url_for, request, session
 from module.database import Database
 import prometheus_client
+from prometheus_client.core import CollectorRegistry
+from prometheus_client import Summary, Counter, Histogram, Gauge
 
 
 
