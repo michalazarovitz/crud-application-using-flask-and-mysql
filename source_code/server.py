@@ -6,9 +6,8 @@ Created on Jan 10, 2017
 
 from flask import Flask, flash, Response, render_template, redirect, url_for, request, session
 from module.database import Database
-import prometheus_client
 from prometheus_client.core import CollectorRegistry
-from prometheus_client import Summary, Counter, Histogram, Gauge
+from prometheus_client import Summary, Counter, Histogram, Gauge, generate_latest
 
 
 
@@ -100,7 +99,7 @@ def deletephone():
 def requests_count():
     res = []
     for k,v in graphs.items():
-        res.append(prometheus_client.generate_latest(v))
+        res.append(generate_latest(v))
     return Response(res, mimetype="text/plain")
 
 @app.errorhandler(404)
